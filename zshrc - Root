@@ -97,9 +97,9 @@ configure_prompt() {
     #[ "$EUID" -eq 0 ] && prompt_symbol=💀
     case "$PROMPT_ALTERNATIVE" in
         twoline)
-            PROMPT="┌─%F{white}[%F{red}%T%F{white}]-[%F{red}$(ip addr show eth0 | grep 'inet ' | awk -F ' ' '{print $2}' | awk -F '/' '{print $1}')%F{white}]-[%F{red}Senpai%F{white}]-[%F{red}%~%F{white}]
+            PROMPT="┌─%F{white}[%F{red}%T%F{white}]-[%F{red}$(ip addr show eth0 | grep 'inet ' | awk -F ' ' '{print $2}' | awk -F '/' '{print $1}')%F{white}]-[%F{red}Root%F{white}]-[%F{red}%~%F{white}]
 └───%F{red}$ %{$reset_color%}"
-            PROMPT="┌─%F{white}[%F{red}%T%F{white}]-[%F{red}$(ip addr show eth0 | grep 'inet ' | awk -F ' ' '{print $2}' | awk -F '/' '{print $1}')%F{white}]-[%F{red}Senpai%F{white}]-[%F{red}%~%F{white}]
+            PROMPT="┌─%F{white}[%F{red}%T%F{white}]-[%F{red}$(ip addr show tun0 | grep 'inet ' | awk -F ' ' '{print $2}' | awk -F '/' '{print $1}')%F{white}]-[%F{red}Root%F{white}]-[%F{red}%~%F{white}]
 └───%F{red}★ %F{white}"
             RPROMPT=
             ;;
@@ -254,3 +254,7 @@ fi
 if [ -f /etc/zsh_command_not_found ]; then
     . /etc/zsh_command_not_found
 fi
+
+setopt inc_append_history
+setopt share_history
+
