@@ -7,7 +7,7 @@ echo "2) Install for root"
 echo "3) Apply changes to tmux"
 echo "4) Install for specific user"
 echo "5) Install all"
-read option
+read -p "Select Option: " option
 
 # Check if option is valid
 if ! [[ "$option" =~ ^[1-5]$ ]]; then
