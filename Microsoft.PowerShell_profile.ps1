@@ -56,4 +56,3 @@ function Prompt {
     return " "
 }
 
-Prompt
