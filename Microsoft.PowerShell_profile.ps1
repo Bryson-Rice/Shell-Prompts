@@ -1,16 +1,8 @@
-﻿
-# Import the Chocolatey Profile that contains the necessary code to enable
-# tab-completions to function for `choco`.
-# Be aware that if you are missing these lines from your profile, tab completion
-# for `choco` will not function.
-# See https://ch0.co/tab-completion for details.
-$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-if (Test-Path($ChocolateyProfile)) {
-  Import-Module "$ChocolateyProfile"
-}
+﻿[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF8
 
 function Prompt {
-    # Get the current time
+
     $currentTime = Get-Date -Format "HH:mm"
 
     # Get the LAN IP address starting with "10.0"
@@ -24,10 +16,8 @@ function Prompt {
     # Fallback if no LAN IP is found
     if (-not $localIP) { $localIP = "No LAN IP" }
 
-    # Get the username (or custom identifier)
-    $username = "Senpai"
+    $username = "Artemis"
 
-    # Get the current directory
     $workingDir = Get-Location
 
     # Determine if the shell is running as admin
@@ -38,7 +28,13 @@ function Prompt {
     $white = [ConsoleColor]::White
 
     # Build the prompt line by line
-    # Line 1: ┌─[Current Time]-[Local IP]-[Username]-[Working dir]
+    # Line 1: ┌─{Current Time]-[Local IP]-[Username]-[Working dir]
+    
+    # This is always weird to get working, you may have to force the file to UTF-8 using these commands
+    # $path = $PROFILE
+    # $content = Get-Content -Raw -Path $path
+    # [System.IO.File]::WriteAllText($path, $content, [System.Text.Encoding]::UTF8)
+    
     Write-Host "┌─" -ForegroundColor $white -NoNewline
     Write-Host "[" -ForegroundColor $white -NoNewline
     Write-Host "$currentTime" -ForegroundColor $contentColor -NoNewline
@@ -55,8 +51,9 @@ function Prompt {
 
     # Line 2: └───$ or └───* (red if admin, cyan if normal)
     Write-Host "└───" -ForegroundColor $white -NoNewline
-    Write-Host ($(if ($isAdmin) { "*" } else { "$" }) ) -ForegroundColor $contentColor -NoNewline
+    Write-Host ($(if ($isAdmin) { "★" } else { "$" }) ) -ForegroundColor $contentColor -NoNewline
 
     return " "
 }
 
+Prompt
